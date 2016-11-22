@@ -1,4 +1,4 @@
-# sqlcmd-plugin
+# ssis-plugin
 The SSIS plugin is an alternative that supports using the DTUtil utility to deploy a zipped file containing multiple DTSX packages.
 
 ##Features##
