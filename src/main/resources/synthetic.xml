@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+-->
+<synthetic xmlns="http://www.xebialabs.com/deployit/synthetic" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+    <type type="mssql.ZippedISPackages" 
+          deployable-type="mssql.ZippedISPackagesSpec"
+          extends="powershell.ExtensiblePowerShellDeployedArtifact" 
+          container-type="mssql.SSISRepository"          
+          description="SSIS packages into a zipped file">
+               
+        <generate-deployable type="mssql.ZippedISPackagesSpec" 
+                             description="Zipped that contains SSIS packages to be deployed at once" 
+                             extends="powershell.BasePowerShellDeployableFileArtifact"/>
+        
+        <!-- hidden -->
+        <property name="createScript" default="ssis/deploy-script.ps1" hidden="true"/>
+        <property name="destroyScript" default="ssis/destroy-script.ps1" hidden="true"/>
+        <property name="createOrder" kind="integer" default="54" hidden="true"/>
+        <property name="createVerb" default="Copy" hidden="true"/>
+    </type>
+    
+    <type type="mssql.SSISRepository" 
+          extends="powershell.BasePowerShellContainer" 
+          description="SSIS Folder to receive all SSIS packages into the Zipped file">
+      
+        <!-- public -->        
+        <property name="InstanceName" description="SQL Server instance name" required="true"/>
+        <property name="FolderName" description="SSIS folder to receive the packates" required="true"/>
+        <property name="TempPath" description="Temporary path to decompress and install the packages" required="true"/>        
+        <property name="DtUtilPath" description="Path of the DTUtil.exe on the server (e.g. c:\SQL Server\)" required="true"/>        
+    </type>
+</synthetic>
